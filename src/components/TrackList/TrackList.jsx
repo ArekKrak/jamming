@@ -1,7 +1,6 @@
-export default function Playlist({ name, tracks }) {
+export default function TrackList({ tracks, actionLabel, onAction }) {
     return (
         <section>
-            <h3>{name}</h3>
             {/* render tracks here */}
         </section>
     );
