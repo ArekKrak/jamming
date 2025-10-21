@@ -1,7 +1,8 @@
 export default function SearchBar({ onSearch }) {
     return (
         <section>
-            <h3>Search...</h3>
+            <input placeholder="Enter a song, artist, or album" />
+            <button>Search</button>
         </section>
     );
 }
