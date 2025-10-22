@@ -1,8 +1,10 @@
+import TrackList from "../TrackList/TrackList";
+
 export default function Playlist({ name, tracks }) {
     return (
         <section>
             <h3>{name}</h3>
-            {/* render tracks here */}
+            <TrackList tracks={tracks} />
             <button>Save to Spotify</button>
         </section>
     );

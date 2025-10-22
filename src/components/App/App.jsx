@@ -26,9 +26,28 @@ const mockTracks = [
   }
 ];
 
+/* Mock playlit tracks */
+const mockPlaylistTracks = [
+  {
+    id: 4,
+    name: "Unforgiven",
+    artist: "Metallica",
+    album: "Metallica"
+  },
+  {
+    id: 5,
+    name: "Haifisch",
+    artist: "Rammstein",
+    album: "Liebe ist für alle da"
+  }
+];
+
 export default function App() {
   /* A state variable that uses state to store information */
   const [searchResults, setSearchResults] = useState(mockTracks);
+  const [playlistTracks, setPlaylistTracks] = useState(mockPlaylistTracks);
+  /* Use state to store playlist name */
+  const [playlistName, setPlaylistName] = useState("Fave Charts");
 
   return (
     <div>
@@ -38,7 +57,7 @@ export default function App() {
         {/* Pass the searchResults down to the child component (SearchResults)
         as a prop */}
         <SearchResults tracks={searchResults} />
-        <Playlist />
+        <Playlist name={playlistName} tracks={playlistTracks} />
       </div>
     </div>
   );
