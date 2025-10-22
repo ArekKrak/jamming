@@ -3,6 +3,7 @@ import { useState } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
+import "./App.css";
 
 /* Hard-code array of track objects */
 const mockTracks = [
@@ -53,11 +54,15 @@ export default function App() {
     <div>
       <h1>Jammming</h1>
       <SearchBar />
-      <div>
-        {/* Pass the searchResults down to the child component (SearchResults)
-        as a prop */}
-        <SearchResults tracks={searchResults} />
-        <Playlist name={playlistName} tracks={playlistTracks} />
+      <div clsassName="container">
+        <section clsassName="section">
+          {/* Pass the searchResults down to the child component (SearchResults)
+          as a prop */}
+          <SearchResults tracks={searchResults} />
+        </section>
+        <section clsassName="section">
+          <Playlist name={playlistName} tracks={playlistTracks} />
+        </section>
       </div>
     </div>
   );
