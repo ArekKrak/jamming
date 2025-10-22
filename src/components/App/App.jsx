@@ -54,13 +54,13 @@ export default function App() {
     <div>
       <h1>Jammming</h1>
       <SearchBar />
-      <div clsassName="container">
-        <section clsassName="section">
+      <div className="container">
+        <section className="section">
           {/* Pass the searchResults down to the child component (SearchResults)
           as a prop */}
           <SearchResults tracks={searchResults} />
         </section>
-        <section clsassName="section">
+        <section className="section">
           <Playlist name={playlistName} tracks={playlistTracks} />
         </section>
       </div>
