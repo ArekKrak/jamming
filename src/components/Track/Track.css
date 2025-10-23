@@ -1,3 +1,31 @@
 div {
     margin-bottom: 0.5rem;
 }
+
+.track {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem;
+    border-bottom:1px solid #333;
+}
+
+.track-info {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.track button {
+    background-color: #111;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 0.25rem 0.75rem;
+    transition: background-color 0.2s ease;
+}
+
+.track button:hover {
+    background-color: #444;
+}
