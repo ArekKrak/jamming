@@ -50,6 +50,16 @@ export default function App() {
   /* Use state to store playlist name */
   const [playlistName, setPlaylistName] = useState("Fave Charts");
 
+  function addTrack(track) {
+    /* Check if the track is already in the playlist */
+    if (playlistTracks.some((savedTrack) => savedTrack.id === track.id)) {
+      return;
+    }
+
+    /* Add new track to the playlist */
+    setPlaylistTracks((prevTracks) => [...prevTracks, track]);
+  }
+
   return (
     <div>
       <h1>Jammming</h1>
@@ -58,7 +68,7 @@ export default function App() {
         <section className="section">
           {/* Pass the searchResults down to the child component (SearchResults)
           as a prop */}
-          <SearchResults tracks={searchResults} />
+          <SearchResults tracks={searchResults} onAdd={addTrack} />
         </section>
         <section className="section">
           <Playlist name={playlistName} tracks={playlistTracks} />
