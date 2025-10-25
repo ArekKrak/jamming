@@ -48,6 +48,33 @@
 
 .section {
   border: 2px solid white;
-  padding: 10px;
+  padding: 16px 10px 10px;
   width: 20rem;
+}
+
+.panel-title {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+
+.playlist-title {
+  all: unset;
+  display: block;
+  width: 100%;
+  color: inherit;
+  cursor: text;
+  font-weight: 700;
+}
+
+.playlist-title:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.playlist-title::placeholder {
+  color: #8a8a8a;
+  font-weight: 600;
 }
