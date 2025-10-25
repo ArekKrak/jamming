@@ -8,6 +8,7 @@ export default function Track({ track, onAdd }) {
                 <h4>{track.name}</h4>
                 <p>{track.artist} &ndash; {track.album}</p>
             </div>
+            {/* Conditional Rendering - if onAdd exists (it's a truthy value), React will render the <button> */}
             {onAdd && (<button onClick={() => onAdd(track)}>+</button>)}
         </div>
     );
