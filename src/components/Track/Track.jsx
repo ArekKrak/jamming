@@ -1,6 +1,6 @@
 import "./Track.css"
 
-export default function Track({ track, onAdd }) {
+export default function Track({ track, onAdd, onRemove }) {
     return (
         <div className="track">
             <div className="track-info">
@@ -10,6 +10,7 @@ export default function Track({ track, onAdd }) {
             </div>
             {/* Conditional Rendering - if onAdd exists (it's a truthy value), React will render the <button> */}
             {onAdd && (<button onClick={() => onAdd(track)}>+</button>)}
+            {onRemove && (<button onClick={() => onRemove(track)}>-</button>)}
         </div>
     );
 }

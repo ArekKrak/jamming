@@ -60,6 +60,12 @@ export default function App() {
     setPlaylistTracks((prevTracks) => [...prevTracks, track]);
   }
 
+  function removeTrack(track) {
+    /* Take the current playlist (prevTracks) and return a new array that excludes
+    the track whose ID matches the one clicked "-" */
+    setPlaylistTracks((prevTracks) => prevTracks.filter((savedTrack) => savedTrack.id !== track.id));
+  }
+
   return (
     <div>
       <h1>Jammming</h1>
@@ -71,7 +77,7 @@ export default function App() {
           <SearchResults tracks={searchResults} onAdd={addTrack} />
         </section>
         <section className="section">
-          <Playlist name={playlistName} tracks={playlistTracks} />
+          <Playlist name={playlistName} tracks={playlistTracks} onRemove={removeTrack} />
         </section>
       </div>
     </div>
