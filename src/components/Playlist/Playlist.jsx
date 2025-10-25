@@ -7,6 +7,7 @@ export default function Playlist({ name, tracks, onRemove, onNameChange }) {
             <input
                 className="playlist-title panel-title"
                 value={name}
+                /* The onChange attribute to update the list */
                 onChange={(e) => onNameChange(e.target.value)}
                 /* Add the Enter key submit */
                 onKeyDown={(e) => {
