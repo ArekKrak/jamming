@@ -48,7 +48,7 @@ export default function App() {
   const [searchResults, setSearchResults] = useState(mockTracks);
   const [playlistTracks, setPlaylistTracks] = useState(mockPlaylistTracks);
   /* Use state to store playlist name */
-  const [playlistName, setPlaylistName] = useState("Fave Charts");
+  const [playlistName, setPlaylistName] = useState("");
 
   function addTrack(track) {
     /* Check if the track is already in the playlist */
@@ -77,7 +77,7 @@ export default function App() {
           <SearchResults tracks={searchResults} onAdd={addTrack} />
         </section>
         <section className="section">
-          <Playlist name={playlistName} tracks={playlistTracks} onRemove={removeTrack} />
+          <Playlist name={playlistName} tracks={playlistTracks} onRemove={removeTrack} onNameChange={setPlaylistName} />
         </section>
       </div>
     </div>
