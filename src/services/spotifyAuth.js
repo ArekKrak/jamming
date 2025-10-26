@@ -1,5 +1,7 @@
 /* MODULE FOR GETTING ACCESS TOKEN */
 
+// Implicit Grant flow: parses token from URL hash, caches until expiry
+
 let token = null; // current access token (string) or null
 let expiresAt = 0; 
 
@@ -8,7 +10,7 @@ let expiresAt = 0;
 const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
 // The exact URL should send the user back to after login
 const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI || window.location.origin + "/" /* This is a fallback, for cases where the env isn't set */;
-// A space-separated list of permissions the requests
+// A space-separated list of permissions the app requests
 const SCOPES = import.meta.env.VITE_SPOTIFY_SCOPES || "playlist-modify-public";
 
 /* Spotify authorize URL function */
@@ -45,11 +47,11 @@ function readTokenFromUrl() {
     // Safe parsing - window.location.hash includes #, so it's sliced off and URLSearchParams does decoding, edge cases, etc.
     const hash = new URLSearchParams(window.location.hash.slice(1));
     const t = hash.get("access_token"); // string or null
-    const expSec = Number(hash.get("expires_in") || "0") // in seconds, not milliseconds
+    const expSec = Number(hash.get("expires_in") || "0"); // in seconds, not milliseconds
     // Validate - only proceed if both are present and the expires_in value is a positive number
     if (t && expSec > 0) {
         // Compute absolute expiry, "expiresAt" = "now" + lifetime in ms, minus a tiny safety buffer
-        // A safety buffer helps avoid edge cases where the token might expire at when attempted to use.
+        // A safety buffer helps avoid edge cases where the token might expire right when we try to use it
         token = t;
         expiresAt = Date.now() + expSec * 1000 - 5000;
         // Clean up URL - call clearHash()
