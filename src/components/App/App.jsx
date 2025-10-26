@@ -53,7 +53,7 @@ export default function App() {
   const [searchResults, setSearchResults] = useState(mockTracks);
   const [playlistTracks, setPlaylistTracks] = useState(mockPlaylistTracks);
   /* Use state to store playlist name */
-  const [playlistName, setPlaylistName] = useState("");
+  const [playlistName, setPlaylistName] = useState("New Playlist");
 
   function addTrack(track) {
     /* Check if the track is already in the playlist and add a new one to the playlist */
