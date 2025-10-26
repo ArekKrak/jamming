@@ -84,3 +84,34 @@ export function getAccessToken() {
     }
     window.location.assign(authorizeUrl());
 }
+
+/* Authenticated fetch - one function, one responsibility: ensure a token and call `fetch` with
+the right headers */
+
+/* Authenticated fetch for Spotify endpoints */
+export async function spotifyFetch(pathOrUrl, init = {}) {
+    // Ensure we have a valid login
+    const t = getAccessToken();
+    if (!t) return new Promise(() => {});
+    // Flexible URL: use "/v1/..." most of the time
+    const url = pathOrUrl.startsWith("http") ? pathOrUrl : `https://api.spotify.com${pathOrUrl}`;
+    // Call fetch with Authorization header
+    const res = await fetch(url, {
+        // let callers override defaults
+        ...init,
+        headers: {
+            Authorization: `Bearer ${t}`,
+            "Content-Type": "application/json",
+            ...(init.headers || {})
+        }
+    });
+
+    if (!res.ok) {
+        let body = "";
+        try {
+            body = await res.clone().text();
+        } catch {}
+        throw new Error(`Spotify ${res.status} ${res.statusText} at ${url}\n${body}`);
+    }
+    return res;
+}
