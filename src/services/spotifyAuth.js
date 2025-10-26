@@ -19,3 +19,19 @@ function authorizeUrl() {
     });
     return `https://accounts.spotify.com/authorize?${p.toString()}`;
 }
+
+/* Clear #... from the URL after parse */
+function clearHash() {
+    // Check that the History API exists
+    if (window.history && window.history.replaceState) {
+        // Reconstruct the URL without the fragment #...
+        const clean = window.location.origin + window.location.pathname + window.location.search;
+        // Replace the current history entry's URL with the clean one, no #...
+        window.history.replaceState({}, document.title, clean);
+    } else {
+        window.location.hash = ""; // Safety fallback
+    }
+}
+
+/* When to call clearHash() ?
+- Immediately after parsing the token and expiry from the hash. */
