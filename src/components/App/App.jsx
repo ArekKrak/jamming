@@ -11,19 +11,22 @@ const mockTracks = [
     id: 1,
     name: "Cherry",
     artist: "King Princess",
-    album: "Cherry"
+    album: "Cherry",
+    uri: 'spotify:track:111'
   },
   {
     id: 2,
     name: "True Believer",
     artist: "Biffy Clyro",
-    album: "True Believer"
+    album: "True Believer",
+    uri: 'spotify:track:222'
   },
   {
     id: 3,
     name: "Now We Are Free",
     artist: "Hans Zimmer",
-    album: "Gladiator"
+    album: "Gladiator",
+    uri: 'spotify:track:333'
   }
 ];
 
@@ -33,13 +36,15 @@ const mockPlaylistTracks = [
     id: 4,
     name: "Unforgiven",
     artist: "Metallica",
-    album: "Metallica"
+    album: "Metallica",
+    uri: 'spotify:track:444'
   },
   {
     id: 5,
     name: "Haifisch",
     artist: "Rammstein",
-    album: "Liebe ist für alle da"
+    album: "Liebe ist für alle da",
+    uri: 'spotify:track:555'
   }
 ];
 
