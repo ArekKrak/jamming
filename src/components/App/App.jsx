@@ -74,7 +74,7 @@ export default function App() {
       console.log("No data to save!");
       return;
     }
-    console.log(`Saving playlist: ${playlistName}, ${uris}`);
+    console.log("Saving playlist: ", playlistName, uris);
     setPlaylistTracks([]);
   }
 
