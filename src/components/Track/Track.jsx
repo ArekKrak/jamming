@@ -9,8 +9,8 @@ export default function Track({ track, onAdd, onRemove }) {
                 <p>{track.artist} &ndash; {track.album}</p>
             </div>
             {/* Conditional Rendering - if onAdd exists (it's a truthy value), React will render the <button> */}
-            {onAdd && (<button onClick={() => onAdd(track)}>+</button>)}
-            {onRemove && (<button onClick={() => onRemove(track)}>-</button>)}
+            {onAdd && (<button onClick={() => onAdd(track)} title="Add to your playlist">+</button>)}
+            {onRemove && (<button onClick={() => onRemove(track)} title="Remove from playlist">-</button>)}
         </div>
     );
 }
