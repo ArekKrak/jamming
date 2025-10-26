@@ -1,5 +1,5 @@
 let token = null; // current access token (string) or null
-let expireAt = 0; 
+let expiresAt = 0; 
 
 /* Add build-time configuration */
 // The public identifier obtained from the Spotify Dashboard
@@ -20,7 +20,7 @@ function authorizeUrl() {
     return `https://accounts.spotify.com/authorize?${p.toString()}`;
 }
 
-/* Clear #... from the URL after parse */
+/* Clear #... from the URL after parse function */
 function clearHash() {
     // Check that the History API exists
     if (window.history && window.history.replaceState) {
@@ -35,3 +35,22 @@ function clearHash() {
 
 /* When to call clearHash() ?
 - Immediately after parsing the token and expiry from the hash. */
+
+/* Read token from URL when coming back from Spotify */
+function readTokenFromUrl() {
+    // Guard - if there's no #... there's no "coming back from Spotify"
+    if (!window.location.hash) return;
+    // Safe parsing - window.location.hash includes #, so it's sliced off and URLSearchParams does decoding, edge cases, etc.
+    const hash = new URLSearchParams(window.location.hash.slice(1));
+    const t = hash.get("access_token"); // string or null
+    const expSec = Number(hash.get("expires_in") || "0") // in seconds, not milliseconds
+    // Validate - only proceed if both are present and the expires_in value is a positive number
+    if (t && expSec > 0) {
+        // Compute absolute expiry, "expiresAt" = "now" + lifetime in ms, minus a tiny safety buffer
+        // A safety buffer helps avoid edge cases where the token might expire at when attempted to use.
+        token = t;
+        expiresAt = Date.now() + expSec * 1000 - 5000;
+        // Clean up URL - call clearHash()
+        clearHash();
+    }
+}
