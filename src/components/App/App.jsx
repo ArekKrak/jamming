@@ -1,4 +1,5 @@
 /* Import useState for later use */
+import { getAccessToken, spotifyFetch } from "../../services/spotifyAuth";
 import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
@@ -86,9 +87,19 @@ export default function App() {
     }
   }, [savePlaylist]);
 
+  async function onConnect() {
+    const t = getAccessToken(); // redirects to Spotify if not logged in
+    if (!t) return;   // navigation happening
+
+    const res = await spotifyFetch("/v1/me");
+    const me = await res.json();
+    alert(`Connected as: ${me.display_name}`);
+  }
+
   return (
     <div>
       <h1>Jammming</h1>
+      <button onClick={onConnect}>Connect Spotify</button>
       <SearchBar />
       <div className="container">
         <section className="section">
