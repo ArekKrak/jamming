@@ -105,7 +105,7 @@ export default function App() {
             tracks={playlistTracks} 
             onRemove={removeTrack} 
             onNameChange={setPlaylistName}
-
+            onSave={savePlaylist}
           />
         </section>
       </div>

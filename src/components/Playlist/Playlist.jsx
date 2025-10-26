@@ -1,7 +1,7 @@
 import TrackList from "../TrackList/TrackList";
 import "./Playlist.css"
 
-export default function Playlist({ name, tracks, onRemove, onNameChange }) {
+export default function Playlist({ name, tracks, onRemove, onNameChange, onSave }) {
     return (
         <section>
             <input
@@ -20,7 +20,8 @@ export default function Playlist({ name, tracks, onRemove, onNameChange }) {
                 placeholder="Playlist name"
             />
             <TrackList tracks={tracks} onRemove={onRemove} />
-            <button>Save to Spotify</button>
+            {/* Pass the onSave prop and add a guard that disables the button when the playlist has no tracks */}
+            <button onClick={onSave} disabled={tracks.length === 0}>Save to Spotify</button>
         </section>
     );
 }
