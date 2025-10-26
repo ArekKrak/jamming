@@ -100,18 +100,22 @@ export async function spotifyFetch(pathOrUrl, init = {}) {
         // let callers override defaults
         ...init,
         headers: {
-            Authorization: `Bearer ${t}`,
-            "Content-Type": "application/json",
-            ...(init.headers || {})
+            Authorization: `Bearer ${t}`,   // required by Spotify
+            "Content-Type": "application/json", // fine for GET; needed for JSON POST/PUT
+            ...(init.headers || {})            // allow caller overrides
         }
     });
 
     if (!res.ok) {
         let body = "";
         try {
+            // clone() so we can read the body here without consuming it for the caller (defensive)
             body = await res.clone().text();
-        } catch {}
+        } catch {
+            // ignore parse issues; body stays ""
+        }
         throw new Error(`Spotify ${res.status} ${res.statusText} at ${url}\n${body}`);
     }
+    // Return the Response so the caller chooses how to parse (json/text/arrayBuffer)
     return res;
 }
