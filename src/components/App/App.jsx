@@ -1,5 +1,5 @@
 /* Import useState for later use */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
@@ -71,6 +71,24 @@ export default function App() {
     setPlaylistTracks((prevTracks) => prevTracks.filter((savedTrack) => savedTrack.id !== track.id));
   }
 
+  function savePlaylist() {
+    const uris = playlistTracks.map(t => t.uri).filter(Boolean);
+    if (uris.length === 0) {
+      console.log("No data to save!");
+      return;
+    }
+    console.log(`Saving playlist: ${playlistName}, ${uris}`);
+    setPlaylistTracks([]);
+  }
+
+  useEffect(() => {
+    /* Vite dev-only guard */
+    if (import.meta.env.DEV) {
+      window.debugSave = () => savePlaylist();
+      return () => { delete window.debugSave; };
+    }
+  }, [savePlaylist]);
+
   return (
     <div>
       <h1>Jammming</h1>
@@ -82,7 +100,13 @@ export default function App() {
           <SearchResults tracks={searchResults} onAdd={addTrack} />
         </section>
         <section className="section">
-          <Playlist name={playlistName} tracks={playlistTracks} onRemove={removeTrack} onNameChange={setPlaylistName} />
+          <Playlist 
+            name={playlistName} 
+            tracks={playlistTracks} 
+            onRemove={removeTrack} 
+            onNameChange={setPlaylistName}
+
+          />
         </section>
       </div>
     </div>
