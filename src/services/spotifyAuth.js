@@ -1,3 +1,5 @@
+/* MODULE FOR GETTING ACCESS TOKEN */
+
 let token = null; // current access token (string) or null
 let expiresAt = 0; 
 
@@ -53,4 +55,30 @@ function readTokenFromUrl() {
         // Clean up URL - call clearHash()
         clearHash();
     }
+}
+
+/* Here's the heart of the flow: a single function that always leaves a user with a valid
+token or in the middle of a redirect to Spotify to get one. */
+
+/* CONSIDERATIONS:
+    - Do we already have a fresh token in memory?
+    - If not, are we just returning from Spotify with a token in the URL?
+    - If not, start the login/consent redirect */
+
+/* Get a valid token or redirect to Spotify */
+export function getAccessToken() {
+    // The fastest way to decide if still valid
+    if (token && Date.now() < expiresAt) {
+        return token; // fast path, good to go
+    }
+    // Just came back from Spotify? Parse hash once and cache values if present
+    readTokenFromUrl();
+    if (token && Date.now() < expiresAt) {
+        return token;
+    }
+    // If still no token, the Implicit Grant flow is needed
+    if (!CLIENT_ID) {
+        throw new Error("Missing VITE_SPOTIFY_CLIENT_ID in .env (restart dev server after editing .env).");
+    }
+    window.location.assign(authorizeUrl());
 }
