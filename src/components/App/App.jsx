@@ -56,13 +56,10 @@ export default function App() {
   const [playlistName, setPlaylistName] = useState("");
 
   function addTrack(track) {
-    /* Check if the track is already in the playlist */
-    if (playlistTracks.some((savedTrack) => savedTrack.id === track.id)) {
-      return;
-    }
-
-    /* Add new track to the playlist */
-    setPlaylistTracks((prevTracks) => [...prevTracks, track]);
+    /* Check if the track is already in the playlist and add a new one to the playlist */
+    setPlaylistTracks(prevTracks => prevTracks.some(savedTrack => 
+      savedTrack.id === track.id) ? prevTracks : [...prevTracks, track]
+    );
   }
 
   function removeTrack(track) {
