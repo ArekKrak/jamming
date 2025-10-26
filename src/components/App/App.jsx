@@ -89,7 +89,7 @@ export default function App() {
   }, [savePlaylist]);
 
   async function onConnect() {
-    const t = getAccessToken(); // redirects to Spotify if not logged in
+    const t = await getAccessToken(); // redirects to Spotify if not logged in
     if (!t) return;   // navigation happening
 
     const res = await spotifyFetch("/v1/me");
@@ -97,11 +97,21 @@ export default function App() {
     alert(`Connected as: ${me.display_name}`);
   }
 
+  async function handleSearch(query) {
+    try {
+      const results = await searchTracks(query);
+      setSearchResults(results);
+    } catch (e) {
+      console.error("Search failed:", e);
+      alert("Search error: " + e.message);
+    }
+  }
+
   return (
     <div>
       <h1>Jammming</h1>
       <button onClick={onConnect}>Connect Spotify</button>
-      <SearchBar />
+      <SearchBar onSearch={handleSearch} />
       <div className="container">
         <section className="section">
           {/* Pass the searchResults down to the child component (SearchResults)
