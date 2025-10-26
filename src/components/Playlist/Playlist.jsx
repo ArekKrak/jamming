@@ -21,7 +21,7 @@ export default function Playlist({ name, tracks, onRemove, onNameChange, onSave 
             />
             <TrackList tracks={tracks} onRemove={onRemove} />
             {/* Pass the onSave prop and add a guard that disables the button when the playlist has no tracks */}
-            <button onClick={onSave} disabled={tracks.length === 0}>Save to Spotify</button>
+            <button className="playlist-button" onClick={onSave} disabled={tracks.length === 0}>Save to Spotify</button>
         </section>
     );
 }
