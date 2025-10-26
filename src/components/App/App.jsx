@@ -1,6 +1,7 @@
 /* Import useState for later use */
 import { getAccessToken, spotifyFetch } from "../../services/spotifyAuth";
 import { useState, useEffect } from "react";
+import { searchTracks } from "../../services/search";
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
