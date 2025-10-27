@@ -10,6 +10,7 @@ Services: spotifyAuth, search, playlist
 - [x] Empty term does not call API
 - [x] "Rammstein" triggers exactly one request
   - [x] Shows loading/disabled state
+
 **Notes:** DevTools shows a CORS preflight (OPTIONS 200) + fetch (304 due to cache). Count only the fetch as "one request".
 
 ### Add / Remove / Dedup
