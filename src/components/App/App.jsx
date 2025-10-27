@@ -37,11 +37,11 @@ export default function App() {
       return;
     }
     if (uris.length === 0) {
-      console.log("No tracks to save!");
+      alert("No tracks to save!");
       return;
     }
     try {
-      const { playlistId, url } = await savePlaylistToSpotify(name, playlistName, uris, "Created with Jammming");
+      const { playlistId, url } = await savePlaylistToSpotify(name, uris, "Created with Jammming");
       // Clear UI after success
       setPlaylistTracks([]);
       setPlaylistName("New Playlist");
