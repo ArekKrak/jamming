@@ -8,7 +8,7 @@ export default function SearchBar({ onSearch }) {
     // Make your request to the API - a trigger that calls the App's `handleSearch` which uses `fetch` via `spotifyFetch`
     async function handleSubmit(event) {
         if (event) event.preventDefault(); // don't reload the page
-        if (!onSearch) return;          // guard if paren didn't pass a handler
+        if (!onSearch) return;          // guard if parent didn't pass a handler
 
         const trimmed = String(query).trim(); // avoid spaces-only
         if (trimmed === "") return;         // skip empty searches
@@ -17,7 +17,8 @@ export default function SearchBar({ onSearch }) {
     }
     
     return (
-        <section>
+        // Enter a search parameter and receive a response - replace the <section> tag with <form>
+        <form onSubmit={handleSubmit}>
             <input 
                 className="input-field" 
                 placeholder="Enter a song, artist, or album"
@@ -26,6 +27,6 @@ export default function SearchBar({ onSearch }) {
                 aria-label="Search query"                   // we'll send to Spotify
             />
             <button>Search</button>
-        </section>
+        </form>
     );
 }
