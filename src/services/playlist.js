@@ -4,7 +4,7 @@ import { spotifyFetch } from "./spotifyAuth"; // Make requests to create new pla
 
 /* Get the current user's Spotify ID ("you'll need the user's ID...") */
 export async function getCurrentUserId() {
-    const res = await spotifyFetch("/v1/me") // GET current user
+    const res = await spotifyFetch("/v1/me"); // GET current user
     const me = await res.json();
     if (!me || !me.id) throw new Error("Could not read user id from /v1/me");
     return me.id;       // e.g. "arekk..."
@@ -12,7 +12,7 @@ export async function getCurrentUserId() {
 
 /* Create a playlist shell with your chosen name ("POST to /v1/users/{user_id}/playlists") */
 export async function createPlaylist(userId, name, description = "") {
-    const body = { name, description, public: true }; // IMPORTANT: public must match current scope in .env
+    const body = { name, description, public: true }; // IMPORTANT: public must match current scope in .env, if updated to false, .env also needs to be updated accordingly
     // Method: POST
     const url = `/v1/users/${encodeURIComponent(userId)}/playlists`; //  `encodeURIComponent` ensures that if the `userId` has special characters, the URL stays valid
     // "use fetch() to make your requests." Make the POST request using my authenticated fetch:
@@ -21,6 +21,7 @@ export async function createPlaylist(userId, name, description = "") {
         body: JSON.stringify(body) // spotifyFetch sets Content-Type: application/json
     });
     // Read the responses and validate
+    if (!res.ok) throw new Error("Failed to create playlist");
     const json = await res.json(); // parse the server's JSON
     if (!json || !json.id) {
         throw new Error("Failed to create playlist");
