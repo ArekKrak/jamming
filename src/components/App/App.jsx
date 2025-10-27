@@ -2,6 +2,7 @@
 import { getAccessToken, spotifyFetch } from "../../services/spotifyAuth";
 import { useState, useEffect } from "react";
 import { searchTracks } from "../../services/search";
+import { savePlaylistToSpotify } from "../../services/playlist";
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
@@ -27,14 +28,24 @@ export default function App() {
     setPlaylistTracks((prevTracks) => prevTracks.filter((savedTrack) => savedTrack.id !== track.id));
   }
 
-  function savePlaylist() {
+  /* "save their custom playlist from Jammming into their account ... when they click the button" */
+  async function savePlaylist() {
     const uris = playlistTracks.map(t => t.uri).filter(Boolean);
     if (uris.length === 0) {
-      console.log("No data to save!");
+      console.log("No tracks to save!");
       return;
     }
-    console.log("Saving playlist: ", playlistName, uris);
-    setPlaylistTracks([]);
+    try {
+      const { playlistId, url } = await savePlaylistToSpotify(playlistName, uris, "Created with Jammming");
+      // Clear UI after success
+      setPlaylistTracks([]);
+      // Optional: open the playlist in a new tab, or just alert the URL
+      //window.open(url, "_blank");
+      alert("Playlist saved! " + (url || `id: ${playlistId}`));
+    } catch (e) {
+      console.error(e);
+      alert("Failed to save playlist: " + e.message);
+    }
   }
 
   useEffect(() => {
