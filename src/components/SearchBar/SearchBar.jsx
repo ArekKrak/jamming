@@ -26,7 +26,9 @@ export default function SearchBar({ onSearch }) {
                 onChange={(e) => setQuery(e.target.value)}  // Whatever the user types is captured in `query` - that's what
                 aria-label="Search query"                   // we'll send to Spotify
             />
-            <button>Search</button>
+            {{/* Avoid incorrectly formatted requests (common errors to avoid) */}}
+            <button type="submit" disabled={String(query).trim() === ""}>Search</button> {/* Disable the button when the input is empty or only 
+            spaces; enable it otherwise. */}
         </form>
     );
 }
