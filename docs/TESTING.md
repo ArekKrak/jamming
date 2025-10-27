@@ -4,7 +4,11 @@
 Components: App, SearchBar, SearchResults/Track, Playlist
 Services: spotifyAuth, search, playlist
 
-## Manual Test Checklist (27 Oct 2025)
+## Environment 
+- Date: 27 Oct 2025
+- Browser Chrome 141 (DevTools)
+- OS: Linux (Debian)
+- Build: dev (Vite)
 
 ### Search
 - [x] Empty term does not call API
