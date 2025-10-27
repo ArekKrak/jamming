@@ -31,14 +31,20 @@ export default function App() {
   /* "save their custom playlist from Jammming into their account ... when they click the button" */
   async function savePlaylist() {
     const uris = playlistTracks.map(t => t.uri).filter(Boolean);
+    const name = String(playlistName).trim();
+    if (!name) {
+      alert("Please, name your playlist first.");
+      return;
+    }
     if (uris.length === 0) {
       console.log("No tracks to save!");
       return;
     }
     try {
-      const { playlistId, url } = await savePlaylistToSpotify(playlistName, uris, "Created with Jammming");
+      const { playlistId, url } = await savePlaylistToSpotify(name, playlistName, uris, "Created with Jammming");
       // Clear UI after success
       setPlaylistTracks([]);
+      setPlaylistName("New Playlist");
       // Optional: open the playlist in a new tab, or just alert the URL
       //window.open(url, "_blank");
       alert("Playlist saved! " + (url || `id: ${playlistId}`));
@@ -54,7 +60,7 @@ export default function App() {
       window.debugSave = () => savePlaylist();
       return () => { delete window.debugSave; };
     }
-  }, [savePlaylist]);
+  }, []);
 
   async function onConnect() {
     const t = await getAccessToken(); // redirects to Spotify if not logged in
