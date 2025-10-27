@@ -30,17 +30,17 @@ export async function searchTracks(query) {
     const results = items.map(function (t) {
         const artists = Array.isArray(t.artists) ? t.artists : [];
         const artistNames = artists.map(function (a) {
-        return a && a.name ? a.name : "";
+            return a && a.name ? a.name : "";
         }).filter(Boolean);
 
         const albumName = t && t.album && t.album.name ? t.album.name : "";
 
         return {
-        id: t && t.id ? t.id : "",
-        name: t && t.name ? t.name : "",
-        artist: artistNames.join(", "),
-        album: albumName,
-        uri: t && t.uri ? t.uri : ""
+            id: t && t.id ? t.id : "",
+            name: t && t.name ? t.name : "",
+            artist: artistNames.join(", "),
+            album: albumName,
+            uri: t && t.uri ? t.uri : ""
         };
     });
 
