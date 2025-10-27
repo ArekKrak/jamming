@@ -1,7 +1,9 @@
 import TrackList from "../TrackList/TrackList";
 import "./Playlist.css"
 
-export default function Playlist({ name, tracks, onRemove, onNameChange, onSave }) {
+export default function Playlist({ name, tracks, onRemove, onNameChange, onSave, isSaving }) {
+    const hasName = String(name).trim().length > 0;
+    const disabled = isSaving || tracks.length === 0 || !hasName;
     return (
         <section>
             <input
@@ -18,10 +20,12 @@ export default function Playlist({ name, tracks, onRemove, onNameChange, onSave 
                 }}
                 aria-label="Playlist name"
                 placeholder="Playlist name"
+                disabled={isSaving}
+                aria-busy={isSaving}
             />
             <TrackList tracks={tracks} onRemove={onRemove} />
             {/* Pass the onSave prop and add a guard that disables the button when the playlist has no tracks */}
-            <button className="playlist-button" onClick={onSave} disabled={tracks.length === 0}>Save to Spotify</button>
+            <button className="playlist-button" onClick={onSave} disabled={disabled} aria-busy={isSaving}>{isSaving ? "Saving..." : "Save to Spotify"}</button>
         </section>
     );
 }

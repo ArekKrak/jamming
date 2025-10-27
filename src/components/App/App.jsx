@@ -14,6 +14,7 @@ export default function App() {
   const [playlistTracks, setPlaylistTracks] = useState([]);
   /* Use state to store playlist name */
   const [playlistName, setPlaylistName] = useState("New Playlist");
+  const [isSaving, setIsSaving] = useState(false); // NEW
 
   function addTrack(track) {
     /* Check if the track is already in the playlist and add a new one to the playlist */
@@ -41,6 +42,7 @@ export default function App() {
       return;
     }
     try {
+      setIsSaving(true); // NEW start
       const { playlistId, url } = await savePlaylistToSpotify(name, uris, "Created with Jammming");
       // Clear UI after success
       setPlaylistTracks([]);
@@ -51,6 +53,8 @@ export default function App() {
     } catch (e) {
       console.error(e);
       alert("Failed to save playlist: " + e.message);
+    } finally {
+      setIsSaving(false); // NEW end
     }
   }
 
@@ -99,6 +103,7 @@ export default function App() {
             onRemove={removeTrack} 
             onNameChange={setPlaylistName}
             onSave={savePlaylist}
+            isSaving={isSaving} // NEW
           />
         </section>
       </div>
