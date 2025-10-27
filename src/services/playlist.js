@@ -32,3 +32,17 @@ export async function createPlaylist(userId, name, description = "") {
         url: webUrl
     };
 }
+
+/* Add tracks to that playlist ("POST to /v1/.../playlists/{playlist_id}/tracks") */
+export async function addTracksToPlaylist(playlistId, uris) { // add tracks to an existing playlist
+    if (!Array.isArray(uris) || uris.length === 0) {
+        return; // nothing to add, silently succeed
+    }
+    const body = { uris }; // build the request body Spotify expects, "provide a list of track IDs in the request body."
+    const res = await spotifyFetch(`/v1/playlists/${encodeURIComponent(playlistId)}/tracks`, {
+        method: "POST", // HTTP verb = create/add
+        body: JSON.stringify(body)  // send JSON { uris: [...] } as the request body
+    });
+    if (!res.ok) throw new Error("Failed to add tracks to playlist");
+}
+
