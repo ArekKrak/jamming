@@ -46,3 +46,16 @@ export async function addTracksToPlaylist(playlistId, uris) { // add tracks to a
     if (!res.ok) throw new Error("Failed to add tracks to playlist");
 }
 
+/* Create a method that writes the user's custom playlist .. when they click 'Save To Spotify' - the async savePlaylistToSpotify function */
+export async function savePlaylistToSpotify(name, uris, description = "") { // Public async function that ties all previous functions together
+    if (!name || String(name). trim() === "") {     // Fail fast if the name is missing/ blank
+        throw new Error("Playlist name is required");
+    }
+    if (!Array.isArray(uris) || uris.length === 0) {    // Ensure there's at least one track URI
+        throw new Error("No tracks to save");
+    }
+    const userId = await getCurrentUserId(); // calls getCurrentUserId (/v1/me) to read me.id, required to create a playlist for that user
+    const { id: playlistId, url } = await createPlaylist(userId, name, description); // Create the playlist - calls createPlaylist to POST /v1/users/{user_id}/playlists
+    await addTracksToPlaylist(playlistId, uris); // calls addTracksToPlaylist function to POST and to add tracks to the new playlist
+    return { playlistId, url }; // give the caller (user UI) the new playlist ID and its web URL
+}
