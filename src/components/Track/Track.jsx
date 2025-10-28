@@ -7,7 +7,6 @@ export default function Track({ track, onAdd, onRemove }) {
                 {/* Display the track info */}
                 <h4>{track.name}</h4>
                 <p>{track.artist} &ndash; {track.album}</p>
-                {track.previewUrl && (<audio src={track.previewUrl} controls preload="none" aria-label={`Preview of ${track.name} by ${track.artist}`} />)}
             </div>
             {/* Conditional Rendering - if onAdd exists (it's a truthy value), React will render the <button> */}
             {onAdd && (<button onClick={() => onAdd(track)} title="Add to your playlist">+</button>)}

@@ -41,7 +41,6 @@ export async function searchTracks(query) {
             artist: artistNames.join(", "),
             album: albumName,
             uri: t && t.uri ? t.uri : "",
-            previewUrl: t && t.preview_url ? t.preview_url : ""
         };
     });
 
