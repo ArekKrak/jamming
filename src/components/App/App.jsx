@@ -28,6 +28,7 @@ export default function App() {
     /* Take the current playlist (prevTracks) and return a new array that excludes
     the track whose ID matches the one clicked "-" */
     setPlaylistTracks((prevTracks) => prevTracks.filter((savedTrack) => savedTrack.id !== track.id));
+    setSearchResults(prev => prev.some(t => t.id === track.id) ? prev : [track, ...prev]);
   }
 
   /* "save their custom playlist from Jammming into their account ... when they click the button" */
