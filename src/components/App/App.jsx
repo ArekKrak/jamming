@@ -21,6 +21,7 @@ export default function App() {
     setPlaylistTracks(prevTracks => prevTracks.some(savedTrack => 
       savedTrack.id === track.id) ? prevTracks : [...prevTracks, track]
     );
+    setSearchResults(prev => prev.filter(t => t.id !== track.id));
   }
 
   function removeTrack(track) {
@@ -78,7 +79,8 @@ export default function App() {
   async function handleSearch(query) {
     try {
       const results = await searchTracks(query);
-      setSearchResults(results);
+      const inPlaylist = new Set(playlistTracks.map(t => t.id));
+      setSearchResults(results.filter(t => !inPlaylist.has(t.id)));
     } catch (e) {
       console.error("Search failed:", e);
       alert("Search error: " + e.message);
