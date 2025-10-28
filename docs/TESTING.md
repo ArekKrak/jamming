@@ -1,7 +1,8 @@
 # Jammming - Testing and Debugging Log
 
 ## Scope
-Components: App, SearchBar, SearchResults/Track, Playlist
+Components: App, SearchBar, SearchResults/Track, TrackList, Playlist
+
 Services: spotifyAuth, search, playlist
 
 ## Environment 
