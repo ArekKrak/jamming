@@ -21,14 +21,14 @@ export default function App() {
     setPlaylistTracks(prevTracks => prevTracks.some(savedTrack => 
       savedTrack.id === track.id) ? prevTracks : [...prevTracks, track]
     );
-    setSearchResults(prev => prev.filter(t => t.id !== track.id));
+    setSearchResults(prev => prev.filter(t => t.id !== track.id)); // NEW - part 2 of this project - hide track from results immediately
   }
 
   function removeTrack(track) {
     /* Take the current playlist (prevTracks) and return a new array that excludes
     the track whose ID matches the one clicked "-" */
     setPlaylistTracks((prevTracks) => prevTracks.filter((savedTrack) => savedTrack.id !== track.id));
-    setSearchResults(prev => prev.some(t => t.id === track.id) ? prev : [track, ...prev]);
+    setSearchResults(prev => prev.some(t => t.id === track.id) ? prev : [track, ...prev]); // NEW - part 2 of this project, removes from the playlist, then puts it back into results
   }
 
   /* "save their custom playlist from Jammming into their account ... when they click the button" */
@@ -80,8 +80,8 @@ export default function App() {
   async function handleSearch(query) {
     try {
       const results = await searchTracks(query);
-      const inPlaylist = new Set(playlistTracks.map(t => t.id));
-      setSearchResults(results.filter(t => !inPlaylist.has(t.id)));
+      const inPlaylist = new Set(playlistTracks.map(t => t.id)); // NEW - part 2 of this project - the feature that makes songs display if not in the playlist 
+      setSearchResults(results.filter(t => !inPlaylist.has(t.id))); // NEW - part 2 of this project, filters results after fetching, formerly setSearchResults(results);
     } catch (e) {
       console.error("Search failed:", e);
       alert("Search error: " + e.message);
