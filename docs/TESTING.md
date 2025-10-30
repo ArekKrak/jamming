@@ -32,3 +32,22 @@ Services: spotifyAuth, search, playlist
 - [x] Expired token path renews and succeeds
 - [x] 401/403 show friendly alert
 - [x] 429 (rate limit suggests retry)
+
+## *New Feature* - Exclude Playlist Items from Search Results
+
+### Search filter
+- [x] With items in playlist, run a search - results exclude any track whose `id` is in `playlistTracks`.
+
+### Add flow
+- [x] Click "+" on a result - it appears in playlist and disappears from results immediately.
+
+### Remove flow
+- [x] Click "-" in playlist - it disappears from playlist and **reappears** at the top of current search results.
+
+### No duplicates
+- [x] Repeated "+" on the same item does not duplicate playlist entries.
+- [x] After remove, "+" works again as expected.
+
+### Regression
+- [x] Save flow works (name required, ≥ 1 track, "Saving..." state, success reset).
+- [x] Empty search guard still prevents API call.
