@@ -88,7 +88,7 @@ jammming/
 
 ## Live Site
 
-*Coming soon...*
+**[View the Live Project](https://jammming-wapp.netlify.app/)**
 
 ---
 
