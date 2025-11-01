@@ -25,7 +25,7 @@ Jammming is a small but production-shaped React app: **search** for tracks, **ad
 ## Features
 
 - **Search tracks** via Spotify's Web API (guarded: no empty requests).
-- **Add / Remove / Dedup** — "+" adds once; "-" removes by id.
+- **Add / Remove / Dedup** — `+` adds once; `-` removes by id.
 - **Save to Spotify** — creates a playlist and adds tracks.
 - **Loading states** — "Searching..." and "Saving..." disable controls while in flight.
 - **Error handling** — friendly alerts on network/offline; token renew flow verified.
@@ -55,64 +55,73 @@ Jammming is a small but production-shaped React app: **search** for tracks, **ad
 ## Project Structure
 
 ```
-arek-portfolio-website/
-├── index.html                  # Home
-├── about.html                  # Aboute
-├── projects.html               # Projects
-├── contact.html                # Contact
-├── styles.css                  # Global styles
-├── main.js                     # Interactivity (portrait, theme, background)
-├── cypher-demo.html            # Demo page
-├── mixed-messages-demo.html    # Demo page
-├── styles-demo.css             # Demo styles
-├── manifest.json               # Manifest
-├── img/                        # Images and SVGs
-│   ├── about-me.svg
-│   ├── about-profile-pic.jpg
-│   ├── back-arrow.svg
-│   ├── background-dark.svg
-│   └── ...etc
-├── vid/                        # Project demo videos
-│   ├── cypher.mp4
-│   └── mixed-messages.mp4
-└── README.md                   # Project documentation
+jammming/
+├── docs/                                    # Design docs and ADRs
+│   ├── DESIGN_EXCLUDE_PLAYLIST_ITEMS.md        # Part 2 feature design
+│   ├── README.md                               # Project documentation
+│   └── TESTING.md                              # Manual testing & debugging log
+├── public/                                  # Static assets served as-is
+│   └── vite.svg                                # Favicon
+├── src/                                     # Application source
+│   ├── assets/                                 # Static assets
+│   ├── components/                             # UI components
+│   │   ├── App/{.jsx, .css}                       # App state wiring
+│   │   ├── SearchBar/{.jsx, .css}                 # Controlled input; "Searching..."
+│   │   ├── SearchResults/{.jsx, .css}             # Results with "+"
+│   │   ├── TrackList/{.jsx, .css}                 # Maps tracks → <Track/>
+│   │   ├── Track/{.jsx, .css}                     # Row with + / -
+│   │   └── Playlist/{.jsx, .css}                  # Name, list, "Saving..."
+│   ├── services/                               # API/auth logic
+│   │   ├── playlist.js                            # savePlaylistToSpotify(...)
+│   │   ├── search.js                              # searchTracks(query)
+│   │   └── spotifyAuth.js                         # PKCE + spotifyFetch wrapper
+│   ├── index.css                               # Global app styles
+│   └── main.jsx                                # React root render
+├── .gitignore                               # Ignore node_modules, .env, build output
+├── index.html                               # Vite entry HTML (mount point for React)
+├── package-lock.json                        # NPM lockfile (commit this)
+├── package.json                             # Project metadata, scripts, dependencies
+└── vite.config.js                           # Vite config
 ```
 
 ---
 
 ## Live Site
-**[View the Live Project](https://arekkrak.github.io/arek-portfolio-website/)**
+
+*Coming soon...*
 
 ---
 
-## Key Concepts Demonstrated
+## Testing & Debugging
 
-- Responsive design with `@media` queries
-- Flexbox & CSS Grid for layout.
-- SVG with gradient fills synchronized with text gradients.
-- Accessibility patterns (reduced motion, semantics).
-- Local development workflow + Git/GitHub.
-- Static hosting via GitHub Pages (custom domain ready).
+- Manual checklist in **`TESTING.md`** (Search, Add/Remove/Dedup, Save Flow, Auth & Errors).
+- **Chrome DevTools** (Network/Offline, Slow 3G) & **React DevTools** for state inspection.
+
+See detailed notes in [TESTING.md](./TESTING.md).
+
+---
+
+## Design Docs
+
+- Part 2: **Exclude Playlist Items from Search Results** — reasoning, tiny diffs, caveats.
+
+---
+
+## Limitations
+
+ - Some API responses are cached (DevTools may show `304` revalidation).
+ - Spotify rate limits (429) are rare on dev clients; UI surfaces a friendly error if they occur.
+ - Different releases of ”the same song” have different IDs and are treated as distinct — by design.
 
 ---
 
 ## Future Improvements
 
-This project serves as a front-end milestone and will be further expanded by:
-
- - Add more projects & remove older ones as I progress.
- - Improve image assets (replace medieval portrait with a professional one).
- - Expand JavaScript interactivity (project filters, animations with motion-safe fallbacks).
- - Add Lighthouse CI badge + automated checks.
- - Polish mobile nav micro-interactions.
-
----
-
-## Acknowledgements
-
-- Icons: [SVG Repo](https://www.svgrepo.com/)
-- Backgrounds: [SVG backgrounds](https://www.svgbackgrounds.com/)
-- Fonts: [Google Fonts](https://fonts.google.com/specimen/Lato)
+- Deploy to Netlify (update **Live URL** and add a screenshot).
+- Private playlist support (`playlist-modify-private`) + toggle.
+- Debounced search-on-typing with minimal requests.
+- Toast notifications instead of alerts.
+- Persist in-progress playlist to `sessionStorage`.
 
 ---
 
