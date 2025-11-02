@@ -61,6 +61,7 @@ jammming/
 │   ├── README.md                               # Project documentation
 │   └── TESTING.md                              # Manual testing & debugging log
 ├── public/                                  # Static assets served as-is
+│   ├── _redirects                              # SPA fallback for Netlify
 │   └── vite.svg                                # Favicon
 ├── src/                                     # Application source
 │   ├── assets/                                 # Static assets
