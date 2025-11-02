@@ -8,6 +8,7 @@
 ![Spotify%20API](https://img.shields.io/badge/Spotify-Web%20API-1DB954?logo=spotify&logoColor=white&style=flat)
 ![ESLint](https://img.shields.io/badge/ESLint-Configured-4B32C3?logo=eslint&logoColor=white&style=flat)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?logo=github&logoColor=white&style=flat)](https://github.com/ArekKrak/jammming)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/63652daf-024a-4abd-8982-7f4089b0d695/deploy-status)](https://app.netlify.com/projects/jammming-wapp/deploys)
 
 This app was built as part of the Codecademy *Full-Stack Web Development* path (**Jammming** project, Parts 1-2).  
 
