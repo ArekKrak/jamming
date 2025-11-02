@@ -117,7 +117,6 @@ See detailed notes in [TESTING.md](./TESTING.md).
 
 ## Future Improvements
 
-- Deploy to Netlify (update **Live URL** and add a screenshot).
 - Private playlist support (`playlist-modify-private`) + toggle.
 - Debounced search-on-typing with minimal requests.
 - Toast notifications instead of alerts.
